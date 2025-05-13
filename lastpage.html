@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Last Page</title>
+  <style>
+body.background-blur {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  background: url('images/flowers.jpg') no-repeat center center/cover;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+body::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  backdrop-filter: blur(5px) brightness(0.7);
+  z-index: 1;
+}
+
+.text-container {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  color: #fff;
+  font-family: 'Segoe UI', sans-serif;
+  text-align: justify;
+  backdrop-filter: blur(3px);
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+.text-container p {
+  font-size: 1rem;
+  line-height: 1.6;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+.continue-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 25px;
+  background: rgba(255, 255, 255, 0.8);
+  color: #333;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.continue-button:hover {
+  background: rgba(255, 255, 255, 1);
+}
+  </style>
+</head>
+<body class="background-blur">
+
+  <div class="text-container">
+    <p id="text-content">
+      If you’ve come this far, thank you, truly. I know I might not deserve it, but I hope you can feel the heart behind every word. I’ve changed in ways I never thought I could, because losing you showed me the parts of myself I couldn’t ignore anymore. I’ve sat in silence, faced the hurt I caused, and rebuilt myself with softness, not pride.
+    </p>
+
+    <button class="continue-button" id="next-button">Next</button>
+  </div>
+
+<script>
+const paragraphs = [
+  `If you’ve come this far, thank you, truly. I know I might not deserve it, but I hope you can feel the heart behind every word. I’ve changed in ways I never thought I could, because losing you showed me the parts of myself I couldn’t ignore anymore. I’ve sat in silence, faced the hurt I caused, and rebuilt myself with softness, not pride.`,
+
+  `If your heart ever wonders, “What if it happens again?” please know, I’ve asked myself that too. Even if the world forgets the way your hand once fit in mine, I never will… because in a thousand lifetimes, I’d still find you and choose you, every time, even if all you remembered was how I stayed when everything else faded.`,
+
+  `If your heart ever wanders back through all the doubts and what-ifs… I hope it remembers this — that even in your silence, I never stopped choosing you, never stopped becoming the man who’d love you better, softer, and true. I’ve made sure that the man standing here now is one who would never let you feel unloved, unseen, or alone again.`,
+
+  `If even a corner of your heart still wonders, “Could we ever…?” I won’t ask for everything. Just a chance. A small opening. You don’t have to promise anything. Just… please don’t close the door all the way. Because I’m still here, not waiting in pain, but standing in hope. And I’ll always be someone who’s ready to walk beside you, at your pace, with nothing but love.`
+];
+
+let currentIndex = 0;
+const textContent = document.getElementById('text-content');
+const nextButton = document.getElementById('next-button');
+
+nextButton.addEventListener('click', () => {
+  currentIndex++;
+
+  if (currentIndex < paragraphs.length) {
+    textContent.innerHTML = paragraphs[currentIndex];
+
+    if (currentIndex === paragraphs.length - 1) {
+      nextButton.textContent = 'Continue';
+    }
+  } else {
+    window.location.href = 'catpage.html';  // Go to cat photo page
+  }
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Cat Page</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background: url('images/flowers.jpg') no-repeat center center/cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
+    }
+
+    .container {
+      position: relative;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(6px);
+      padding: 20px;
+      border-radius: 15px;
+      color: #ffff;
+      text-align: center;
+      max-width: 600px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+      text-shadow: 1px 1px 5px rgba(0, 0, 0, 1);
+    }
+
+    .fade-element {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 1s ease, transform 1s ease;
+    }
+
+    .fade-element.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .continue-button {
+      display: none;
+      margin-top: 10px;
+      padding: 10px 20px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 15px;
+      background: rgba(255, 255, 255, 0.9);
+      color: #594C4C;
+      cursor: pointer;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div id="lyrics">
+      <p class="fade-element" id="line1">Bura na mano baat ka,</p>
+      <p class="fade-element" id="line2">Ye pyaar hai gila nahi🌸</p>
+      <p class="fade-element" id="line3">Abhi na jao chodh kar,</p>
+      <p class="fade-element" id="line4">Ye dil abhi bhara nahi❤️</p>
+    </div>
+
+    <img src="images/catflowers.jpg" alt="Cute Cat" class="fade-element" id="catPhoto" style="width:200px; border-radius:15px; margin:20px auto;">
+    <p class="fade-element" id="catCaption">Can't wait to give flowers to my most precious and lovable flower 🌸</p>
+
+    <p class="fade-element" id="finalLine">"If these words reached even a corner of your heart, let them be a quiet apology and if your heart ever softens, you'll find me here, still hoping."</p>
+
+    <a href="https://www.instagram.com/anandt540" target="_blank" class="continue-button" id="continueBtn">please click this and unblock the door 💖🌻</a>
+  </div>
+
+  <audio id="bgMusic" preload="auto" src="https://github.com/Hyper468/mp3host/raw/refs/heads/main/mix_1m57s%20(audio-joiner.com).mp3"></audio>
+
+  <script>
+    const bgMusic = document.getElementById('bgMusic');
+    const lyrics = [
+      document.getElementById('line1'),
+      document.getElementById('line2'),
+      document.getElementById('line3'),
+      document.getElementById('line4')
+    ];
+    const catPhoto = document.getElementById('catPhoto');
+    const catCaption = document.getElementById('catCaption');
+    const finalLine = document.getElementById('finalLine');
+    const continueBtn = document.getElementById('continueBtn');
+
+    // Helper to show element
+    function fadeInElement(el, delay) {
+      setTimeout(() => {
+        el.classList.add('visible');
+      }, delay);
+    }
+
+    window.onload = () => {
+      bgMusic.volume = 0.8;
+      bgMusic.play().catch(() => {
+        // For autoplay restrictions fallback
+        console.log("Music play deferred");
+      });
+
+      let delay = 0;
+
+      // Lyrics every 2 seconds
+      lyrics.forEach((line, index) => {
+        fadeInElement(line, delay);
+        delay += 2000; // 2 seconds gap
+      });
+
+      // Cat Photo after lyrics (at 8s)
+      fadeInElement(catPhoto, delay);
+      delay += 5000;
+
+      // Caption after photo (at 10s)
+      fadeInElement(catCaption, delay);
+      delay += 2000;
+
+      // Final line (at 12s)
+      fadeInElement(finalLine, delay);
+      delay += 5000; // little longer for final line fade (15s)
+
+      // Continue Button shows between 18-20s
+      setTimeout(() => {
+        continueBtn.style.display = 'inline-block';
+      }, 18000);
+    };
+  </script>
+
+</body>
+</html>

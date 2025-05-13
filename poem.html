@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Poem Test - Couplets</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+
+/* Full-screen background video */
+#backgroundVideo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+
+#poemContainer {
+text-align: center;
+width: 90%;           /\* Fixed width as % of screen */
+max-width: 900px;     /* Optional: max width limit */
+min-width: 500px;     /* Prevent too small width \*/
+position: relative;
+z-index: 1;
+background-color: rgba(255, 255, 255, 0.6);
+padding: 2rem;
+border-radius: 10px;
+box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+@keyframes fadeOutContainer {
+  from { opacity: 0.6; }
+  to { opacity: 0; }
+}
+
+
+.poemLine {
+  font-size: 1.5rem;
+  color: #333;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  margin: 0.5rem 0;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Styling the continue button */
+#continueButton {
+  display: none;
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-color: #f7b7b7;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+#continueButton:hover {
+  background-color: #f58f8f;
+}
+.button-container {
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+  </style>
+</head>
+<body>
+
+  <!-- Background Video -->
+
+  <video id="backgroundVideo" autoplay muted>
+    <source src="https://res.cloudinary.com/dlxi4dw8s/video/upload/v1747125659/fmbes5eyg3gif7yl20ip.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  <audio id="backgroundMusic">
+  <source src="https://github.com/Hyper468/mp3host/raw/refs/heads/main/yung%20kai%20-%20blue%20(Lyrics).mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+
+
+  <div id="poemContainer">
+    <p id="line1" class="poemLine"></p>
+    <p id="line2" class="poemLine"></p>
+  </div>
+  <div class="button-container" id="buttonWrapper" style="display: none;">
+  <button id="continueButton" onclick="continueAction()">Continue</button>
+</div>
+
+
+  <script>
+    const poemLines = [
+    "You smiled like morning touched the skies,",
+    "A world of stars hid in your eyes",
+    "You spoke in glances, soft and few,",
+    "But every word of yours rang true",
+    "You walked like poems wore your name,",
+    "Like even silence lit a flame",
+    "You weren’t just someone passing through,",
+    "The world turned softer next to you",
+    "I saw the storm behind your grace,",
+    "The hurt you hid behind your face",
+    "Your silence louder than the rain,",
+    "I felt the weight, I felt your pain",
+    "I know I failed to understand,",
+    "To hold your heart with steady hand",
+    "I let the quiet build a wall,",
+    "You reached for me, I missed the call",
+    "But now I wear the truth like skin,",
+    "And stitch the cracks I’ve held within",
+    "If I could turn back time somehow,",
+    "I’d choose to listen more than now",
+    "I never asked you to forgive,",
+    "But hoped you'd see the way I live",
+    "Each day I walk a softer line,",
+    "With folded hands, your peace and mine",
+    "I’ve waited not with restless cries,",
+    "But with the calm behind my eyes",
+    "Not counting time, just letting be,",
+    "And planting hope in memory",
+    "Not every love burns wild and fast,",
+    "Some bloom in silence, built to last",
+    "And I have learned to wait and grow,",
+    "Till you return, if hearts still know",
+    "You gave me flowers, quiet, true,",
+    "Not wrapped in words, but full of you.",
+    "Two blooms that spoke in silent grace,",
+    "Of warmth and storms we both would face",
+    "I kept them close, like sacred light,",
+    "Pressed in a book, still soft, still bright",
+    "One was her - wild, free, and kind,",
+    "The other me - still growing, blind",
+    "I kept them safe through storm and sun,",
+    "Their scent, your memory, always one",
+    "And though they fade, they never die,",
+    "Like promises we left in sky",
+    "Side by side, they stood so still,",
+    "Like hearts that bloomed against their will",
+    "And even now, through wind and gloom,",
+    "I dream of when they’ll dare re-bloom",
+    "I don’t care how broken the pieces might be,",
+    "If it's with you, it's still everything to me",
+    "Cracks don’t scare me, nor do scars",
+    "Even shattered hearts can still hold stars",
+    "We don't need perfect, just a place to start,",
+    "Two hands, one truth, and an open heart",
+    "I’ve seen our worst and still believe,",
+    "In all the love we’ve yet to weave",
+    "Let them say it’s hard I know it’s true,",
+    "But I’d walk through storms to stand by you",
+    "You're not a page I’m willing to end",
+    "You're a whole story I'd rewrite again",
+    "So if there’s even a whisper left in you,",
+    "Let it speak what your silence couldn’t do",
+    "All I ask is a step, not the whole way",
+    "I’ll meet you in the light, if you just don’t stray",
+    "You held the pen once, now it’s yours again,",
+    "To write the chapters where healing begins",
+    "One word from you could open the sky,",
+    "And I’d be there, no questions why",
+    "I don’t ask for answers, not even a vow,",
+    "Just a sign that there’s still a “somehow ”",
+    "Even if silence turns you away,",
+    "I’ll believe in us anyway",
+    "I’m sorry for the times I stood too still,",
+    "When silence grew heavy, against your will",
+    "But I’ve changed the way I speak and stay,",
+    "So you never feel alone that way",
+    "If doubt still whispers, Will it break again?",
+    "Know I’ve healed the hands that once caused pain",
+    "If your mind still wonders, What if it breaks?",
+    "Or fears the echoes of old mistakes",
+    "Let me say this, with nothing to hide,",
+    "I’ve changed the man who stood by your side",
+    "No ego left, no battles to win,",
+    "No doors that slam or silence within",
+    "I carry no right, no claim, no tie",
+    "Just a love that won’t make your soul cry",
+    "I won’t beg, won’t bind, won’t pull you near,",
+    "But you’ll never have to flinch from fear",
+    "If we begin again, it won’t repeat",
+    "I’ve buried the parts that brought you defeat",
+    "This time, no shadows, no weight, no war",
+    "Only a heart that won’t hurt yours anymore",
+    "The way you felt lost in a crowded room,",
+    "Now I’d hold your hand and give you room",
+    "You won’t have to shrink, or dim your flame,",
+    "I’d whisper your worth, not call your name",
+    "You once gave flowers that spoke more than words,",
+    "I’ve kept their scent, your voice still heard",
+    "And in that quiet, I've grown to see,",
+    "The kind of man I want to be",
+    "I miss you more than these lines can show,",
+    "In every breath, in every slow glow",
+    "I miss you not with tears alone,",
+    "But with the hope that love has grown",
+    "I miss you in the spaces between breaths,",
+    "Where the silence is loud, and my heart feels less",
+    "I miss the weight of your hand in mine,",
+    "A touch that once made everything align",
+    "I miss the way your laughter filled the air,",
+    "And how in your absence, all I have is despair",
+    "I miss you like petals miss the rain,",
+    "Like the sky holds the stars, waiting through the pain.",
+    "Like the moon that longs for the sky,",
+    "I miss you in every breath, in every sigh",
+    "I still talk to the sky, hoping you might hear,",
+    "That I’m still the one who holds you near",
+    "If your heart still beats behind that wall,",
+    "Know I never stopped loving you at all",
+    "And if you ever turn around one quiet day,",
+    "Where light peeks through your cloudy grey",
+    "You'll find me there, with arms wide still,",
+    "No questions asked, just heart and will",
+    "I've learned to listen, to hold, to grow,",
+    "To show your love in ways you’d know",
+    "To laugh with you, or just be near,",
+    "To wipe away each quiet fear",
+    "And if we walk where flowers bloom,",
+    "No matter how long the waiting room",
+    "I’ll carry joy, not just the pain,",
+    "For even storms must turn to rain",
+    "If your heart still speaks my name,",
+    "In quiet echoes or quiet flame",
+    "Then don’t hold back, don’t fear the start,",
+    "Come walk again into my heart",
+    "No perfect script, no flawless page,",
+    "Just truth and love at every stage",
+    "Whatever broke, we’ll heal it slow,",
+    "If it’s with you, I’ll never let go",
+    "For if your soul still feels the thread,",
+    "Know this love was never dead",
+    "But now... the pen is yours to hold",
+    "To write the story we never told"
+    ];
+
+    const line1 = document.getElementById('line1');
+    const line2 = document.getElementById('line2');
+    const continueButton = document.getElementById('continueButton');
+    const backgroundVideo = document.getElementById('backgroundVideo');
+    const backgroundMusic = document.getElementById('backgroundMusic');
+
+// When video ends, show Continue button
+backgroundVideo.addEventListener('ended', () => {
+  document.getElementById('buttonWrapper').style.display = 'flex';
+});
+
+// When Continue button is clicked, play music
+function continueAction() {
+  backgroundMusic.play();
+  // You can add navigation or other actions here if needed
+}
+
+// Unmute and play video when poem page loads
+window.addEventListener('load', () => {
+  // Try to unmute and play again after user came from first page
+  backgroundVideo.muted = false;
+  backgroundVideo.play().catch((e) => {
+    console.log('Autoplay with sound was blocked:', e);
+  });
+});
+
+// Show continue button when video ends
+backgroundVideo.addEventListener('ended', () => {
+  continueButton.style.display = 'block';
+});
+    let currentCouplet = 0;
+
+    function showNextCouplet() {
+      if (currentCouplet >= poemLines.length) {
+        setTimeout(() => {
+  const poemContainer = document.getElementById('poemContainer');
+  poemContainer.style.animation = 'fadeOutContainer 2s forwards';
+}, 1000); // Delay before fade out starts
+
+  return; // End of poem
+}
+
+      // Set couplet lines
+      line1.textContent = poemLines[currentCouplet];
+      line2.textContent = poemLines[currentCouplet + 1];
+
+      // Fade in
+      line1.style.opacity = '1';
+      line2.style.opacity = '1';
+
+      setTimeout(() => {
+        // Fade out
+        line1.style.opacity = '0';
+        line2.style.opacity = '0';
+
+        // Move to next couplet after fade out
+        currentCouplet += 2;
+        setTimeout(showNextCouplet, 300); // 1s gap before next couplet
+      }, 5000); // Couplets visible for 5s
+    }
+    backgroundVideo.addEventListener('ended', () => {
+  continueButton.style.display = 'block';
+});
+    // Start poem sequence
+    showNextCouplet();
+
+    // Continue action when button is clicked
+    function continueAction() {
+      alert('Continue action triggered!'); // Customize this with the next page or interaction
+    }
+    continueButton.addEventListener('click', () => {
+  window.location.href = 'lastpage.html';
+
+
+});
+
+  </script>
+
+</body>
+</html>
