@@ -84,24 +84,35 @@ const paragraphs = [
  `(This small song... dedicated to you)`
 ];
 
-let currentIndex = 0;
-const textContent = document.getElementById('text-content');
-const nextButton = document.getElementById('next-button');
+        let currentIndex = 0;
+        const textContent = document.getElementById('text-content');
+        const nextButton = document.getElementById('next-button');
+        const backgroundMusic = document.getElementById('bgMusic');
 
-nextButton.addEventListener('click', () => {
-  currentIndex++;
+        document.addEventListener('DOMContentLoaded', function() {
+            if (backgroundMusic) {
+                backgroundMusic.volume = 0.8;
+                backgroundMusic.play().catch(error => {
+                    console.error("Autoplay of background music was prevented:", error);
+                    // Optionally display a message to the user to interact to play the music.
+                });
+            }
+        });
 
-  if (currentIndex < paragraphs.length) {
-    textContent.innerHTML = paragraphs[currentIndex];
+        nextButton.addEventListener('click', () => {
+            currentIndex++;
 
-    if (currentIndex === paragraphs.length - 1) {
-      nextButton.textContent = 'Continue';
-    }
-  } else {
-    window.location.href = 'catpage.html';  // Go to cat photo page
-  }
-});
-</script>
+            if (currentIndex < paragraphs.length) {
+                textContent.innerHTML = paragraphs[currentIndex];
+
+                if (currentIndex === paragraphs.length - 1) {
+                    nextButton.textContent = 'Continue';
+                }
+            } else {
+                window.location.href = 'catpage.html';  // Go to cat photo page
+            }
+        });
+    </script>
 
 </body>
 </html>
