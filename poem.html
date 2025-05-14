@@ -96,10 +96,6 @@ box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
     <source src="https://res.cloudinary.com/dlxi4dw8s/video/upload/v1747125659/fmbes5eyg3gif7yl20ip.mp4" type="video/mp4">
     Your browser does not support the video tag.
   </video>
-  <audio id="backgroundMusic">
-  <source src="https://github.com/Hyper468/mp3host/raw/refs/heads/main/yung%20kai%20-%20blue%20(Lyrics).mp3" type="audio/mpeg">
-  Your browser does not support the audio element.
-</audio>
 
 
   <div id="poemContainer">
@@ -261,18 +257,14 @@ box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
     const line2 = document.getElementById('line2');
     const continueButton = document.getElementById('continueButton');
     const backgroundVideo = document.getElementById('backgroundVideo');
-    const backgroundMusic = document.getElementById('backgroundMusic');
+    
 
 // When video ends, show Continue button
 backgroundVideo.addEventListener('ended', () => {
   document.getElementById('buttonWrapper').style.display = 'flex';
 });
 
-// When Continue button is clicked, play music
-function continueAction() {
-  backgroundMusic.play();
-  // You can add navigation or other actions here if needed
-}
+
 
 // Unmute and play video when poem page loads
 window.addEventListener('load', () => {
